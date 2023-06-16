@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\UserLogin as EntityUserLogin;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -11,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User
 {
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -37,12 +39,6 @@ class User
     #[ORM\OneToMany(mappedBy: 'user_id', targetEntity: Session::class)]
     private Collection $sessions;
 
-    #[ORM\Column(length: 255, nullable:true)]
-    private ?string $Email = null;
-
-    #[ORM\Column(length: 255, nullable:true)]
-    private ?string $Password = null;
-
     #[ORM\Column(nullable:true)]
     private ?\DateTimeInterface $created_at = null;
 
@@ -52,10 +48,14 @@ class User
     #[ORM\Column(length: 255, nullable:true)]
     private ?string $Media = null;
 
-    public function __construct()
-    {
+    #[ORM\OneToOne(targetEntity: UserLogin::class, inversedBy:'user')] 
+    #[ORM\JoinColumn(name: 'user_login_id', referencedColumnName: 'id')]
+    private ?UserLogin $userLogin = null; 
 
-    }
+    public function __construct(UserLogin $userLogin)
+    {
+        $this->userLogin = $userLogin; 
+    } 
 
     public function getId(): ?int
     {
@@ -164,28 +164,8 @@ class User
         return $this;
     }
 
-    public function getEmail(): ?string
-    {
-        return $this->Email;
-    }
-
-    public function setEmail(string $Email): self
-    {
-        $this->Email = $Email;
-
-        return $this;
-    }
-
-    public function getPassword(): ?string
-    {
-        return $this->Password;
-    }
-
-    public function setPassword(string $Password): self
-    {
-        $this->Password = $Password;
-
-        return $this;
+    public function prePresist(): void {
+        $this->created_at = new \DatetimeInterface;
     }
 
     public function getCreatedAt(): ?\DateTimeInterface
@@ -220,6 +200,18 @@ class User
     public function setMedia(?string $Media): self
     {
         $this->Media = $Media;
+
+        return $this;
+    }
+
+    public function getUserLogin(): ?EntityUserLogin
+    {
+        return $this->userLogin;
+    }
+
+    public function setUserLogin(?EntityUserLogin $userLogin): self
+    {
+        $this->userLogin = $userLogin;
 
         return $this;
     }
