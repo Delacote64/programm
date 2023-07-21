@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SessionRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -20,21 +22,26 @@ class Session
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
-    #[ORM\Column(type: Types::TEXT)]
-    private ?string $description = null;
-
     #[ORM\Column]
     private ?\DateTimeImmutable $created_at = null;
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updated_at = null;
 
-    #[ORM\ManyToOne(inversedBy: 'sessions')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?user $user_id = null;
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'session')]
+    #[ORM\JoinColumn(name:'user_id',referencedColumnName: 'id')]
+    private ?User $user = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?SeanceType $seancetype_id = null;
+    private ?SessionType $sessiontype = null;
+
+    #[ORM\OneToMany(mappedBy: 'session', targetEntity: Exercises::class)]
+    private Collection $exercises;
+
+    public function __construct()
+    {
+        $this->exercises = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -65,18 +72,6 @@ class Session
         return $this;
     }
 
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    public function setDescription(string $description): self
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
     public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->created_at;
@@ -103,24 +98,53 @@ class Session
 
     public function getUserId(): ?user
     {
-        return $this->user_id;
+        return $this->user;
     }
 
-    public function setUserId(?user $user_id): self
+    public function setUserId(?user $user): self
     {
-        $this->user_id = $user_id;
+        $this->user = $user;
+        return $this;
+    }
+
+    public function getSessiontypeId(): ?SessionType
+    {
+        return $this->sessiontype;
+    }
+
+    public function setSessiontypeId(?SessionType $sessiontype): self
+    {
+        $this->sessiontype = $sessiontype;
 
         return $this;
     }
 
-    public function getSeancetypeId(): ?SeanceType
+    /**
+     * @return Collection<int, Exercises>
+     */
+    public function getExercises(): Collection
     {
-        return $this->seancetype_id;
+        return $this->exercises;
     }
 
-    public function setSeancetypeId(?SeanceType $seancetype_id): self
+    public function addExercise(Exercises $exercise): static
     {
-        $this->seancetype_id = $seancetype_id;
+        if (!$this->exercises->contains($exercise)) {
+            $this->exercises->add($exercise);
+            $exercise->setSession($this);
+        }
+
+        return $this;
+    }
+
+    public function removeExercise(Exercises $exercise): static
+    {
+        if ($this->exercises->removeElement($exercise)) {
+            // set the owning side to null (unless already changed)
+            if ($exercise->getSession() === $this) {
+                $exercise->setSession(null);
+            }
+        }
 
         return $this;
     }

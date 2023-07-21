@@ -1,0 +1,48 @@
+@font-face {
+    font-family: "Calistoga";
+    src: url("src/templates/assets/font/Calistoga-Regular.ttf");
+  }
+
+  
+body { 
+    background-color: #5E43FF;
+}
+
+.content {
+    position: absolute;
+    left: 40%;
+    top: 30%;
+}
+
+.logo-programm {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+.btn-registration {
+    display: flex;
+    justify-content: center;
+}
+
+.btn-registration a {
+    background-color: white;
+    padding: 20px 55px 20px 55px;
+    border-radius: 50px;
+    font-family: "Calistoga";
+    text-decoration: none;
+    margin-bottom: 20px;
+    color: black;
+    font-size: 30px;
+}
+
+.btn-connexion {
+    display: flex;
+    justify-content: center;
+}
+
+.btn-connexion a{
+    text-decoration: none;
+    color:white;
+    font-family: "Calistoga";
+}

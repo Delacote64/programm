@@ -2,9 +2,11 @@
 
 namespace App\Entity;
 
+use App\Entity\UserLogin as EntityUserLogin;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
@@ -15,37 +17,44 @@ class User
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column (length: 255, nullable:true)]
     private ?string $name = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $surname = null;
+    #[ORM\Column(length: 255, nullable:true)]
+    private ?string $surname = null; 
 
-    #[ORM\Column]
-    private ?int $age = null;
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable:true)]
+    private ?\DateTimeInterface $age = null;
 
-    #[ORM\Column]
-    private ?bool $sexe = null;
+    #[ORM\Column(length: 255, nullable:true)]
+    private ?string $sexe = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable:true)]
     private ?int $size = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable:true)]
     private ?int $weight = null;
-
-    #[ORM\Column]
-    private ?\DateTimeImmutable $created_at = null;
-
-    #[ORM\Column(nullable: true)]
-    private ?\DateTimeImmutable $updated_at = null;
 
     #[ORM\OneToMany(mappedBy: 'user_id', targetEntity: Session::class)]
     private Collection $sessions;
 
-    public function __construct()
+    #[ORM\Column(nullable:true)]
+    private ?\DateTimeInterface $created_at = null;
+
+    #[ORM\Column(nullable:true)]
+    private ?\DateTimeInterface $updated_at = null;
+
+    #[ORM\Column(length: 255, nullable:true)]
+    private ?string $Media = null;
+
+    #[ORM\OneToOne(targetEntity: UserLogin::class, inversedBy:'user')] 
+    #[ORM\JoinColumn(name: 'user_login_id', referencedColumnName: 'id')]
+    private ?UserLogin $userLogin = null; 
+
+    public function __construct(UserLogin $userLogin)
     {
-        $this->sessions = new ArrayCollection();
-    }
+        $this->userLogin = $userLogin; 
+    } 
 
     public function getId(): ?int
     {
@@ -76,24 +85,12 @@ class User
         return $this;
     }
 
-    public function getAge(): ?int
-    {
-        return $this->age;
-    }
-
-    public function setAge(int $age): self
-    {
-        $this->age = $age;
-
-        return $this;
-    }
-
     public function isSexe(): ?bool
     {
         return $this->sexe;
     }
 
-    public function setSexe(bool $sexe): self
+    public function setSexe(string $sexe): self
     {
         $this->sexe = $sexe;
 
@@ -120,30 +117,6 @@ class User
     public function setWeight(int $weight): self
     {
         $this->weight = $weight;
-
-        return $this;
-    }
-
-    public function getCreatedAt(): ?\DateTimeImmutable
-    {
-        return $this->created_at;
-    }
-
-    public function setCreatedAt(\DateTimeImmutable $created_at): self
-    {
-        $this->created_at = $created_at;
-
-        return $this;
-    }
-
-    public function getUpdatedAt(): ?\DateTimeImmutable
-    {
-        return $this->updated_at;
-    }
-
-    public function setUpdatedAt(?\DateTimeImmutable $updated_at): self
-    {
-        $this->updated_at = $updated_at;
 
         return $this;
     }
@@ -177,4 +150,69 @@ class User
 
         return $this;
     }
+
+    public function getAge(): ?\DateTimeInterface
+    {
+        return $this->age;
+    }
+
+    public function setAge(\DateTimeInterface $age): self
+    {
+        $this->age = $age;
+
+        return $this;
+    }
+
+    public function prePresist(): void {
+        $this->created_at = new \DatetimeInterface;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $created_at): self
+    {
+        $this->created_at = $created_at;
+
+        return $this;
+    }
+    
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updated_at): self
+    {
+        $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    public function getMedia(): ?string
+    {
+        return $this->Media;
+    }
+
+    public function setMedia(?string $Media): self
+    {
+        $this->Media = $Media;
+
+        return $this;
+    }
+
+    public function getUserLogin(): ?EntityUserLogin
+    {
+        return $this->userLogin;
+    }
+
+    public function setUserLogin(?EntityUserLogin $userLogin): self
+    {
+        $this->userLogin = $userLogin;
+
+        return $this;
+    }
+
 }

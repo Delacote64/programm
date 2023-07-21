@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link href="{{ asset('css/session.css') }}" rel="stylesheet"/>
+    <script src="{{ asset('main.js')}}"></script>
+    </head>
+    <body>
+        <div class="page_container">
+            {% block body %}
+            <label for="session">Choisissez un type de séance</label>
+                <select name="session" id="session" onChange="affiche_ncDIV(this.value)">
+                    <option value="Musculation">Musculation</option>
+                    <option value="Cardio">Cardio</option>
+                    <option value="Abdominaux">Abdominaux</option>
+                </select>
+                {{ form_end(form) }}
+                {{ form_start(form) }}
+                    {{ form_widget(form.title_exercise) }}
+                {{ form_end(form) }}
+            {% endblock %}
+        </div>
+    </body>
+</html>

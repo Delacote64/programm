@@ -1,0 +1,18 @@
+@font-face {
+    font-family: "Calistoga";
+    src: url("src/templates/assets/font/Calistoga-Regular.ttf");
+}
+
+@font-face {
+    font-family: "Dosis";
+    src: url("src/templates/assets/font/Dosis-Regular.ttf");
+}
+
+body {
+    background-color: #5E43FF;
+    margin:0;
+}
+
+.page_container {
+    background-color: white;
+}

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="{{ app.request.locale }}">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <title>{% block title %}Symfony Demo application{% endblock %}</title>
+        {#
+            Those two blocks defines frontend entrypoint for CSS and JavaScript assets
+            See https://symfony.com/doc/current/frontend.html
+        #}
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+        <H1>oui</H1>
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+    </head>
+</html>

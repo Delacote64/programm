@@ -3,9 +3,10 @@
 namespace App\Entity;
 
 use App\Repository\BodyPartRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-
 #[ORM\Entity(repositoryClass: BodyPartRepository::class)]
 class BodyPart
 {
@@ -23,8 +24,8 @@ class BodyPart
     #[ORM\Column(type: Types::TEXT)]
     private ?string $exemple_exercice = null;
 
-    #[ORM\ManyToOne(inversedBy: 'bodypart_id')]
-    private ?Exercices $exercices = null;
+    // #[ORM\ManyToOne(inversedBy: 'bodypart_id', targetEntity: Exercices::class)]
+    // private ?Exercices $exercices = null;
 
     public function getId(): ?int
     {
@@ -67,15 +68,16 @@ class BodyPart
         return $this;
     }
 
-    public function getExercices(): ?Exercices
-    {
-        return $this->exercices;
-    }
+    // public function getExercices(): ?Exercices
+    // {
+    //     return $this->exercices;
+    // }
 
-    public function setExercices(?Exercices $exercices): self
-    {
-        $this->exercices = $exercices;
+    // public function setExercices(?Exercices $exercices): self
+    // {
+    //     $this->exercices = $exercices;
 
-        return $this;
-    }
+    //     return $this;
+    // }
+
 }
