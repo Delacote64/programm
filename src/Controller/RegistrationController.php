@@ -8,7 +8,6 @@ use App\Entity\User;
 use App\Entity\UserLogin;
 use App\Repository\UserRepository;
 use App\Repository\UserLoginRepository;
-use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;

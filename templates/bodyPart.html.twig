@@ -10,6 +10,26 @@
     {# <link href="{{ asset('style.css') }}" rel="stylesheet"/> #}
     </head>
     <body>
-
+        <div class="page_container">
+            <div class="body-face">
+                <div class="pectoraux" onclick="toggleDescendantDiv()"></div>
+                <div class="click-pectoraux">
+                    <div class="container">
+                        <h3>Pectoraux<h3>
+                        <p id="description">Les muscles pectoraux sont les muscles localisés sur la surface du thorax. Il existe deux muscles pectoraux, le petit pectoral et le grand pectoral.</p>
+                        <span></span>
+                        <p id="exercice">Le Développé Couché ou Bench: Allongé sur un banc horizontal, les fessiers en contact 
+                            avec le banc, les pieds au sol: -saisir la barre, mains en pronation en prenant un écartement supérieur à la 
+                            largeur des épaules, inspirer et descendre la barre en contrôlant le mouvement jusqu’à la poitrine, développer 
+                            en expirant en fin d’effort.
+                        </p>
+                    </div>
+                </div>
+                <div class="abdominaux" data-part="abdominaux"></div>
+                <div class="epaule" data-part="epaule"></div>
+                <div class="body-part-img"><img src="img/corps-hum-face.png"></div>
+            </div>
+            <p>Cliquez sur une partie du corps</p>
+        </div>
     </body>
 </html>

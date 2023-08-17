@@ -6,26 +6,22 @@ use App\Entity\Session;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\BodyPart;
 use App\Entity\Exercises;
+use App\Entity\MusculationSession;
+use App\Entity\SessionType;
 use App\Form\CombinedFormData;
 use App\Form\CombinedType;
 use App\Repository\UserRepository;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
 use App\Repository\UserLoginRepository;
 use App\Repository\SessionRepository;
 use App\Repository\ExercisesRepository;
+use App\Repository\MusculationSessionRepository;
 use DateTime;
-use Doctrine\ORM\EntityManagerInterface;
 use IntlDateFormatter;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use App\Form\MusculationType;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\FormFactoryInterface;
-use App\Form\ExerciseType;
-use App\Form\SessionType;
-use Doctrine\ORM\EntityManager;
+
 
 class ProgrammController extends AbstractController
 {
@@ -34,13 +30,15 @@ class ProgrammController extends AbstractController
     private $sessionRepository;
     private $exercisesRepository;
     private $entityManager;
+    private $MusculationSessionRepository;
     
-    public function __construct(UserRepository $userRepository, UserLoginRepository $userLoginRepository, SessionRepository $sessionRepository, ExercisesRepository $exercisesRepository, ManagerRegistry $doctrine)
+    public function __construct(UserRepository $userRepository, UserLoginRepository $userLoginRepository, SessionRepository $sessionRepository, ExercisesRepository $exercisesRepository, MusculationSessionRepository $musculationSessionRepository, ManagerRegistry $doctrine)
     {
         $this->userRepository = $userRepository;
         $this->userLoginRepository = $userLoginRepository;  
         $this->sessionRepository = $sessionRepository;  
         $this->exercisesRepository = $exercisesRepository;
+        $this->MusculationSessionRepository = $musculationSessionRepository;
         $this->entityManager = $doctrine->getManager();
     }
 
@@ -104,8 +102,8 @@ class ProgrammController extends AbstractController
         $form = $this->createForm(CombinedType::class, $data);
     
         $form->handleRequest($request);
-    
         if ($form->isSubmitted() && $form->isValid()) {
+            var_dump($form);
             $data = $form->getData();
             $session = $data->getSession();
             $exercises = $data->getExercise();
@@ -117,9 +115,9 @@ class ProgrammController extends AbstractController
             $this->entityManager->persist($exercises);
             $this->entityManager->flush();
             //$this->exercisesRepository->save($exercises, true);
-    
+
             // Redirect to another page after successful submission
-            return $this->redirectToRoute('profil', ['id' => $session->getId()]);
+            return $this->redirectToRoute('session', ['id' => $session->getId()]);
         }
     
         return $this->render('session.html.twig', [
@@ -130,8 +128,33 @@ class ProgrammController extends AbstractController
     #[Route('/bodyPart', name: 'bodyPart', methods: ["GET"])]
 
     public function oserView(): Response
-    {    
+    {   
         return $this->render('bodyPart.html.twig');
     }
 
+    /*
+    * @Route("/create-musculation", name="create_musculation")
+    */
+    #[Route('/create', name: 'create', methods: ["GET", "POST"])]
+
+   public function createMusculation(Request $request, MusculationSessionRepository $MusculationSessionRepository): Response
+   {
+       $musculationSession = new MusculationSession();
+       $form = $this->createForm(MusculationType::class, $musculationSession);
+   
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $musculationSession = $form->getData();
+            $musculationSession->setCreatedAt(new \DateTimeImmutable('now'));
+
+            $this->MusculationSessionRepository->save($musculationSession, true);
+            $this->entityManager->persist($musculationSession);
+            $this->entityManager->flush();
+            return $this->redirectToRoute('accueil'); // Redirection après l'enregistrement
+        }
+   
+       return $this->render('create.html.twig', [
+           'form' => $form->createView(),
+       ]);
+   }
 }

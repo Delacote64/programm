@@ -1,0 +1,28 @@
+{# templates/session/create_session.html.twig #}
+
+{% block body %}
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+
+{% endblock %}
+
+{# {% block javascripts %}
+    <script>
+        const typeSelector = document.querySelector('#form_type');
+        const dynamicFormContainer = document.querySelector('#dynamic-form-container');
+
+        typeSelector.addEventListener('change', () => {
+            dynamicFormContainer.innerHTML = ''; // Effacer le contenu précédent
+
+            const selectedType = typeSelector.value;
+
+            // Charger le contenu du formulaire spécifique en fonction du type sélectionné
+            fetch(`/get-${selectedType}-form`)
+                .then(response => response.text())
+                .then(html => {
+                    dynamicFormContainer.innerHTML = html;
+                });
+        });
+    </script>
+{% endblock %} #}

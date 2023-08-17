@@ -9,19 +9,26 @@
     <script src="{{ asset('main.js')}}"></script>
     </head>
     <body>
-        <div class="page_container">
-            {% block body %}
-            <label for="session">Choisissez un type de séance</label>
-                <select name="session" id="session" onChange="affiche_ncDIV(this.value)">
-                    <option value="Musculation">Musculation</option>
-                    <option value="Cardio">Cardio</option>
-                    <option value="Abdominaux">Abdominaux</option>
-                </select>
-                {{ form_end(form) }}
-                {{ form_start(form) }}
-                    {{ form_widget(form.title_exercise) }}
-                {{ form_end(form) }}
-            {% endblock %}
+        <div class="page">
+            <div class="back-btn">
+                <a href="accueil"><img src="img/back-btn.png"></a>
+            </div>
+            <div class="page_container">
+                <div class = "form-session">
+                    {% block body %}
+                    <p>Quel séance voulez vous faire ?</p>
+                    <label for="session"></label>
+                        <select name="session" id="session" onChange="affiche_ncDIV(this.value)">
+                            <option value="Musculation">Musculation</option>
+                            <option value="Cardio">Cardio</option>
+                            <option value="Abdominaux">Abdominaux</option>
+                        </select>
+                        {{ form_end(form) }}
+                        {{ form_start(form) }}
+                        {{ form_end(form) }}
+                    {% endblock %}
+                </div>
+            </div>
         </div>
     </body>
 </html>
