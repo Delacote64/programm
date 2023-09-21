@@ -21,7 +21,6 @@ class MusculationSessionRepository extends ServiceEntityRepository
         parent::__construct($registry, MusculationSession::class);
     }
 
-    
     public function save(MusculationSession $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
@@ -29,6 +28,13 @@ class MusculationSessionRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function getTitles() {
+        return $this->createQueryBuilder('m')
+        ->select('m.title_session')
+        ->getQuery()
+        ->getResult();
     }
 //    /**
 //     * @return MusculationSession[] Returns an array of MusculationSession objects

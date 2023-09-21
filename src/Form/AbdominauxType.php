@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class AbdominauxType extends AbstractType
 {
@@ -47,8 +48,10 @@ class AbdominauxType extends AbstractType
                 'seconds' => range(0, 59),
                 'attr' => ['placeholder' => 'Temps de repos (minutes:secondes)']
             ])            
-            ->add('description')
-            ->add('user')
+            ->add('description', TextType::class, [
+                'attr' => ['placeholder' => 'Description']
+            ])            
+            ->add('Terminer', SubmitType::class)
         ;
     }
 

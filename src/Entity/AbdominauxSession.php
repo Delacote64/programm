@@ -30,10 +30,10 @@ class AbdominauxSession
     private ?int $repetition = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeImmutable $time_exercise = null;
+    private ?\DateTimeInterface $time_exercise = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeImmutable $break = null;
+    private ?\DateTimeInterface $break = null;
 
     #[ORM\Column(length: 255)]
     private ?string $description = null;
@@ -109,24 +109,24 @@ class AbdominauxSession
         return $this;
     }
 
-    public function getTimeExercise(): ?\DateTimeImmutable
+    public function getTimeExercise(): ?\DateTimeInterface
     {
         return $this->time_exercise;
     }
 
-    public function setTimeExercise(\DateTimeImmutable $time_exercise): static
+    public function setTimeExercise(\DateTimeInterface $time_exercise): static
     {
         $this->time_exercise = $time_exercise;
 
         return $this;
     }
 
-    public function getBreak(): ?\DateTimeImmutable
+    public function getBreak(): ?\DateTimeInterface
     {
         return $this->break;
     }
 
-    public function setBreak(\DateTimeImmutable $break): static
+    public function setBreak(\DateTimeInterface $break): static
     {
         $this->break = $break;
 

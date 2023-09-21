@@ -5,30 +5,50 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
-    <link href="{{ asset('css/session.css') }}" rel="stylesheet"/>
+    {% block stylesheets %}{{ encore_entry_link_tags('app') }}{% endblock %}
     <script src="{{ asset('main.js')}}"></script>
     </head>
-    <body>
+    <body class="body-session">
         <div class="page">
             <div class="back-btn">
                 <a href="accueil"><img src="img/back-btn.png"></a>
             </div>
-            <div class="page_container">
+            <div class="page_container_session">
                 <div class = "form-session">
                     {% block body %}
-                    <p>Quel séance voulez vous faire ?</p>
-                    <label for="session"></label>
+                    <p>Choisissez un type de séance</p>
+                    {# <label for="session"></label>
                         <select name="session" id="session" onChange="affiche_ncDIV(this.value)">
-                            <option value="Musculation">Musculation</option>
-                            <option value="Cardio">Cardio</option>
-                            <option value="Abdominaux">Abdominaux</option>
-                        </select>
-                        {{ form_end(form) }}
-                        {{ form_start(form) }}
-                        {{ form_end(form) }}
-                    {% endblock %}
+                            <option value="" disabled selected>- Type de séances -</option>
+                            <option id="togg1" value="Musculation">Musculation</option>
+                            <option id="togg2" value="Cardio">Cardio</option>
+                            <option id="togg3" value="Abdominaux">Abdominaux</option>
+                        </select> #}
+                        <div class="type-seance-icon">
+                            <div class="togg1" onclick="toggleSize(this)"> <img src="img/muscu-icon.png" alt ="">Musculation</div>
+                            <div class="togg2" onclick="toggleSize(this)"> <img src="img/cardio-icon.png" alt ="">Cardio</div>
+                            <div class="togg3" onclick="toggleSize(this)"> <img src="img/abdo-icon.png" alt ="">Abdominaux</div>
+                        </div>
                 </div>
+                <div class="form">
+                    <div id="MusculationType" class="hidden-form">
+                        {{ form_start(form_musculation) }}
+                        {{ form_widget(form_musculation) }}
+                        {{ form_end(form_musculation) }}
+                    </div>
+                    <div id="CardioType" class="hidden-form">
+                        {{ form_start(form_cardio) }}
+                        {{ form_widget(form_cardio) }}
+                        {{ form_end(form_cardio) }}     
+                    </div>
+                    <div id="AbdominauxType" class="hidden-form"> 
+                        {{ form_start(form_abdominaux) }}
+                        {{ form_widget(form_abdominaux) }}
+                        {{ form_end(form_abdominaux) }}
+                    </div> 
+                </div>  
             </div>
         </div>
+            {% endblock %}
     </body>
 </html>

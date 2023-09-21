@@ -5,31 +5,318 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Body Part </title>
-    <link href="{{ asset('css/bodyPart.css') }}" rel="stylesheet"/>
+    {% block stylesheets %}{{ encore_entry_link_tags('app') }}{% endblock %}
     <script src="{{ asset('main.js')}}"></script>
-    {# <link href="{{ asset('style.css') }}" rel="stylesheet"/> #}
     </head>
     <body>
-        <div class="page_container">
+        <div class="page_container_bodyPart">
+            <div id="overlay" class="hidden"></div>
+            <div class="back-btn">
+                <a href="accueil"><img src="img/back-btn.png"></a>
+            </div>
             <div class="body-face">
-                <div class="pectoraux" onclick="toggleDescendantDiv()"></div>
+                <div class="btn-body">
+                    <button id="face">Face</button>
+                    <button id="dos">Dos</button>
+                </div>
+
+                <div class="pectoraux" onclick="togglePectorauxDiv()"></div>
                 <div class="click-pectoraux">
                     <div class="container">
-                        <h3>Pectoraux<h3>
-                        <p id="description">Les muscles pectoraux sont les muscles localisés sur la surface du thorax. Il existe deux muscles pectoraux, le petit pectoral et le grand pectoral.</p>
-                        <span></span>
-                        <p id="exercice">Le Développé Couché ou Bench: Allongé sur un banc horizontal, les fessiers en contact 
-                            avec le banc, les pieds au sol: -saisir la barre, mains en pronation en prenant un écartement supérieur à la 
-                            largeur des épaules, inspirer et descendre la barre en contrôlant le mouvement jusqu’à la poitrine, développer 
-                            en expirant en fin d’effort.
-                        </p>
+                        <h3>Pectoraux</h3>
+                        <p class="close" onclick="closePectorauxDiv()">X</p>
+                        <p class="description">Les muscles pectoraux sont les muscles localisés sur la surface du thorax. Il existe deux muscles pectoraux, le petit pectoral et le grand pectoral.</p>
+                        <p class="exercice"><strong>Exercice(s)</strong> : Le Développé Couché ou Bench: Allongé sur un banc horizontal, les fessiers en contact avec le banc, les pieds au sol: saisir la barre, mains en pronation en prenant un écartement supérieur à la 
+                        largeur des épaules, inspirer et descendre la barre en contrôlant le mouvement jusqu’à la poitrine, développer 
+                        en expirant en fin d’effort.</p>
+                        <div class="liste-session">
+                            <select id="title" name="title">
+                                <option value="" disabled selected>- Ajouter à une séance -</option>
+                                {% for title in titlesession %}
+                                    <option value="{{ title.title_session }}">{{ title.title_session }}</option>
+                                {% endfor %}
+                            </select>
+                            {# <a href=""><p class="creer-seance">Créer une séance à partir de cet exercice</p></a> #}
+                        </div>
                     </div>
                 </div>
-                <div class="abdominaux" data-part="abdominaux"></div>
-                <div class="epaule" data-part="epaule"></div>
-                <div class="body-part-img"><img src="img/corps-hum-face.png"></div>
+                <div class="abdominaux" onclick="toggleAbdominauxDiv()"></div>
+                <div class="click-abdominaux">
+                    <div class="container">
+                        <h3>Abdominaux</h3>
+                        <p class="close" onclick="closeAbdominauxDiv()">X</p>
+                        <p class="description">Il sollicite principalement le droit de l’abdomen</p>
+                        <p class="exercice"><strong>Exercice(s)</strong> : Exemple d’exercice: Allongé sur le dos, les mains derrière la tête les cuisses à la verticale, les genoux fléchis: 
+                        inspirer et décoller les épaules du sol en rapprochant les genoux de la tête par un enroulement du rachis.</p>
+                        <div class="liste-session">
+                            <select id="title" name="title">                                    
+                            <option value="" disabled selected>- Ajouter à une séance -</option>
+                                {% for title in titlesession %}
+                                    <option value="{{ title.title_session }}">{{ title.title_session }}</option>
+                                {% endfor %}
+                            </select>
+                            <button type="submit">Valider</button>
+                        </div></div>
+                </div>
+
+                <div class="epaule" onclick="toggleEpauleDiv()"></div>
+                <div class="click-epaule">
+                    <div class="container">
+                        <h3>Epaule</h3>
+                        <p class="close" onclick="closeEpauleDiv()">X</p>
+                        <p class="description">A la fois la plus instable et la plus mobile du corps, elle permet des mouvements dans les trois 
+                            plans de l’espace et constitue une chaine cinétique permettant un guidage précis des gestes du bras et de la 
+                            main.</p>
+                        <p class="exercice"><strong>Exercice(s)</strong> : Le développer assis avec haltère: Assis, le dos bien droit, les haltères au niveau des 
+                            épaules, tenues mains en pronation: inspirer et développer jusqu’à tendre les bras verticalement. Expirer en 
+                            fin de mouvement.</p>
+                        <div class="liste-session">
+                            <select id="title" name="title">                                   
+                             <option value="" disabled selected>- Ajouter à une séance -</option>
+                                {% for title in titlesession %}
+                                    <option value="{{ title.title_session }}">{{ title.title_session }}</option>
+                                {% endfor %}
+                                <button type="submit">Valider</button>
+                            </select>
+                        </div>
+                    </div>
+                </div>        
+
+                <div class="biceps" onclick="toggleBicepsDiv()"></div>
+                <div class="click-biceps">
+                    <div class="container">
+                        <h3>Biceps</h3>
+                        <p class="close" onclick="closeBicepsDiv()">X</p>
+                        <p class="description">Cet exercice sollicite le brachio-radial (long supinateur), le brachial antérieur, le biceps brachial, le deltoïde antérieur et dans une moindre mesure, le cora-co-bracial et le faisceau claviculaire du grand pectoral.</p>
+                        <p class="exercice"><strong>Exercice(s)</strong> : Le Curl avec haltère: Assis, un haltère dans chaque main:
+                        inspirer et fléchir les avant-bras sur les bras en effectuant une rotation du poignet vers l'extérieur avant l'arrivée des avant-bras à l'horizontale;
+                        achever la flexion en levant les coudes, expirer en fin de mouvement.</p>
+                        <div class="liste-session">
+                            <select id="title" name="title">
+                                <option value="" disabled selected>- Ajouter à une séance -</option>
+                                {% for title in titlesession %}
+                                    <option value="{{ title.title_session }}">{{ title.title_session }}</option>
+                                {% endfor %}
+                            </select>
+                            <button type="submit">Valider</button>
+                        </div> 
+                    </div>
+                </div>           
+
+                <div class="biceps-brachial" onclick="toggleBicepsBrachialDiv()"></div>
+                <div class="click-biceps-brachial">
+                    <div class="container">
+                        <h3>Biceps Brachial </h3>
+                        <p class="close" onclick="closeBicepsBrachialDiv()">X</p>
+                        <p class="description">Adopté par de nombreux boxeurs et grand nombre de champions du développé-couché, muscler ses avant-bras est important pour éviter les poignets de vibrer lors du port de charges lourdes.</p>
+                        <p class="exercice"><strong>Exercice(s)</strong> : A la barre, debout jambes légèrement écartées, bras tendus vers le bas, les mains en pronations pouces vers l’intérieur inspirer et fléchir les bras. Puis expirer à la descente.</p>
+                        <div class="liste-session">
+                            <select id="title" name="title">                                  
+                              <option value="" disabled selected>- Ajouter à une séance -</option>
+                                {% for title in titlesession %}
+                                    <option value="{{ title.title_session }}">{{ title.title_session }}</option>
+                                {% endfor %}
+                            </select>
+                            <button type="submit">Valider</button>
+                        </div>
+                    </div>
+                </div>           
+
+                <div class="poignet" onclick="togglePoignetDiv()"></div>
+                    <div class="click-poignet">
+                        <div class="container">
+                            <h3>Poignet</h3>
+                            <p class="close" onclick="closePoignetDiv()">X</p>
+                            <p class="description">Le muscle quadriceps fémoral est dans le corps humain celui qui présente le plus gros volume. Le muscle quadriceps fémoral est localisé dans la cuisse. Il est constitué de quatre faisceaux, le muscle droit fémoral, le muscle vaste latéral, le muscle vaste médial et le muscle vaste intermédiaire.</p>
+                            <p class="exercice"><strong>Exercice(s)</strong> : Assis, les avant-bras reposant sur les cuisses ou sur un banc, la barre saisie mains en supination, les poignets en extensions passivent: inspirer et fléchir les poignets: expirer en fin de mouvement. </p>
+                            <div class="liste-session">
+                                <select id="title" name="title">     
+                                    <option value="" disabled selected>- Ajouter à une séance -</option>
+                                    {% for title in titlesession %}
+                                        <option value="{{ title.title_session }}">{{ title.title_session }}</option>
+                                    {% endfor %}
+                                </select>
+                                <button type="submit">Valider</button>
+                            </div>
+                        </div>
+                </div>  
+
+                <div class="quadriceps" onclick="toggleQuadricepsDiv()"></div>
+                <div class="click-quadriceps">
+                    <div class="container">
+                        <h3>Quadriceps</h3>
+                        <p class="close" onclick="closeQuadricepsDiv()">X</p>
+                        <p class="description">Le muscle quadriceps fémoral est dans le corps humain celui qui présente le plus gros volume. Le muscle quadriceps fémoral est localisé dans la cuisse. Il est constitué de quatre faisceaux, le muscle droit fémoral, le muscle vaste latéral, le muscle vaste médial et le muscle vaste intermédiaire.</p>
+                        <span class="separation"></span>
+                        <p class="exercice"><strong>Exercice(s)</strong> : Le SQUAT: la barre posée sur le support, se glisser dessous et la placer sur les trapèzes 
+                            un peu plus haut que les deltoïdes postérieurs; saisir la barre à pleines mains avec un écartement variable 
+                            selon les morphologies et tirer les coudes en arrière; inspirer fortement, cambrer légèrement le dos en effectuant une antéversion du bassin, contracter la sangle abdominale, regarder droit devant soi et décoller la 
+                            barre du support. Reculer d’un ou deux pas, s’accroupir en inclinant le dos vers l’avant en controlant la descente et en arrondissant jamais le dos.</p>
+                        <div class="liste-session">
+                            <select id="title" name="title">  
+                                <option value="" disabled selected>- Ajouter à une séance -</option>
+                                {% for title in titlesession %}
+                                    <option value="{{ title.title_session }}">{{ title.title_session }}</option>
+                                {% endfor %}
+                            </select>
+                            <button type="submit">Valider</button>
+                        </div>
+                    </div>
+                </div>  
+
+                <div class="body-part-img">
+                    <img src="img/corps-hum-face.png">
+                </div>
             </div>
-            <p>Cliquez sur une partie du corps</p>
+            <div class="body-dos">
+                <div class="triceps" onclick="toggleTricepsDiv()"></div>
+                <div class="click-triceps">
+                    <div class="container">
+                        <h3>Triceps</h3>
+                        <p class="close" onclick="closeTricepsDiv()">X</p>
+                        <p class="description">C’est le muscle le plus important en matière de volume, au niveau des bras.</p>
+                        <p class="exercice"><strong>Exercice(s)</strong> : Tirage poulie: face à l’appareil, les mains sur la poignée, coudes le long du corps:
+                            -inspirer et effectuer une extension des avant-bras en veillant à ne pas écarter les coudes du corps. Expirer en 
+                            fin de mouvement. Selon le type de poignet utilisé cela sollicite davantage le chef latéral du triceps. Ce type 
+                            d’exercice est bien pour débuter car on gagne vite en force et cela permet de basculer vers des exercices plus 
+                            complexes.</p>
+                        <div class="liste-session">
+                            <select id="title" name="title">
+                                <option value="" disabled selected>- Ajouter à une séance -</option>
+                                {% for title in titlesession %}
+                                    <option value="{{ title.title_session }}">{{ title.title_session }}</option>
+                                {% endfor %}
+                            </select>
+                            <a href=""><p class="creer-seance">Créer une séance à partir de cet exercice</p></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="Grand dorsal" onclick="toggleDorsalDiv()"></div>
+                <div class="click-dorsal">
+                    <div class="container">
+                        <h3>Grand dorsal</h3>
+                        <p class="close" onclick="closeDorsalDiv()">X</p>
+                        <p class="description">Le muscle grand dorsal est un muscle plat qui se situe au niveau du tronc et de l'épaule, dans le dos. Le muscle grand dorsal est recouvert d'une membrane fibreuse.</p>
+                        <p class="exercice"><strong>Exercice(s)</strong> : TRACTION: en suspension à la barre fixe, mains très écartées en pronation ou largeur d’épaules:
+                            -inspirer et effectuer une traction pour amener la nuque presque au contact de la barre. Expirer en fin de 
+                            mouvement</p>
+                        <div class="liste-session">
+                            <select id="title" name="title">                                    
+                            <option value="" disabled selected>- Ajouter à une séance -</option>
+                                {% for title in titlesession %}
+                                    <option value="{{ title.title_session }}">{{ title.title_session }}</option>
+                                {% endfor %}
+                            </select>
+                            <button type="submit">Valider</button>
+                        </div></div>
+                </div>
+
+                <div class="Trapèze" onclick="toggleTrapezeDiv()"></div>
+                <div class="click-trapeze">
+                    <div class="container">
+                        <h3>Trapèze</h3>
+                        <p class="close" onclick="closeTrapezeDiv()">X</p>
+                        <p class="description">Il est un muscle qui reste actif chez les paraplégiques, même en cas de rupture de la moelle épinière au niveau thoraco-lombaire, grâce à son innervation au niveau du plexus cervico-brachial.</p>
+                        <p class="exercice"><strong>Exercice(s)</strong>TIRAGE HORIZONTALE A LA POULIE assis face à l’appareil, les pieds sur les cales, buste fléchi:
+                        -inspirer et ramener la poignée à la base du sternum en redressant le dos et en tirant les coudes en arrière le 
+                        plus loin possible.</p>
+                        <div class="liste-session">
+                            <select id="title" name="title">                                   
+                             <option value="" disabled selected>- Ajouter à une séance -</option>
+                                {% for title in titlesession %}
+                                    <option value="{{ title.title_session }}">{{ title.title_session }}</option>
+                                {% endfor %}
+                            </select>
+                            <button type="submit">Valider</button>
+                        </div>
+                    </div>
+                </div>        
+
+                <div class="dos" onclick="toggleDosDiv()"></div>
+                <div class="click-dos">
+                    <div class="container">
+                        <h3>Biceps</h3>
+                        <p class="close" onclick="closeBicepsDiv()">X</p>
+                        <p class="description">Cet exercice sollicite le brachio-radial (long supinateur), le brachial antérieur, le biceps brachial, le deltoïde antérieur et dans une moindre mesure, le cora-co-bracial et le faisceau claviculaire du grand pectoral.</p>
+                        <p class="exercice"><strong>Exercice(s)</strong> : Le Curl avec haltère: Assis, un haltère dans chaque main:
+                        inspirer et fléchir les avant-bras sur les bras en effectuant une rotation du poignet vers l'extérieur avant l'arrivée des avant-bras à l'horizontale;
+                        achever la flexion en levant les coudes, expirer en fin de mouvement.</p>
+                        <div class="liste-session">
+                            <select id="title" name="title">
+                                <option value="" disabled selected>- Ajouter à une séance -</option>
+                                {% for title in titlesession %}
+                                    <option value="{{ title.title_session }}">{{ title.title_session }}</option>
+                                {% endfor %}
+                            </select>
+                            <button type="submit">Valider</button>
+                        </div> 
+                    </div>
+                </div>           
+
+                <div class="biceps-brachial" onclick="toggleBicepsBrachialDiv()"></div>
+                <div class="click-biceps-brachial">
+                    <div class="container">
+                        <h3>Biceps Brachial </h3>
+                        <p class="close" onclick="closeBicepsBrachialDiv()">X</p>
+                        <p class="description">Adopté par de nombreux boxeurs et grand nombre de champions du développé-couché, muscler ses avant-bras est important pour éviter les poignets de vibrer lors du port de charges lourdes.</p>
+                        <p class="exercice"><strong>Exercice(s)</strong> : A la barre, debout jambes légèrement écartées, bras tendus vers le bas, les mains en pronations pouces vers l’intérieur inspirer et fléchir les bras. Puis expirer à la descente.</p>
+                        <div class="liste-session">
+                            <select id="title" name="title">                                  
+                              <option value="" disabled selected>- Ajouter à une séance -</option>
+                                {% for title in titlesession %}
+                                    <option value="{{ title.title_session }}">{{ title.title_session }}</option>
+                                {% endfor %}
+                            </select>
+                            <button type="submit">Valider</button>
+                        </div>
+                    </div>
+                </div>           
+
+                <div class="poignet" onclick="togglePoignetDiv()"></div>
+                    <div class="click-poignet">
+                        <div class="container">
+                            <h3>Poignet</h3>
+                            <p class="close" onclick="closePoignetDiv()">X</p>
+                            <p class="description">Le muscle quadriceps fémoral est dans le corps humain celui qui présente le plus gros volume. Le muscle quadriceps fémoral est localisé dans la cuisse. Il est constitué de quatre faisceaux, le muscle droit fémoral, le muscle vaste latéral, le muscle vaste médial et le muscle vaste intermédiaire.</p>
+                            <p class="exercice"><strong>Exercice(s)</strong> : Assis, les avant-bras reposant sur les cuisses ou sur un banc, la barre saisie mains en supination, les poignets en extensions passivent: inspirer et fléchir les poignets: expirer en fin de mouvement. </p>
+                            <div class="liste-session">
+                                <select id="title" name="title">     
+                                    <option value="" disabled selected>- Ajouter à une séance -</option>
+                                    {% for title in titlesession %}
+                                        <option value="{{ title.title_session }}">{{ title.title_session }}</option>
+                                    {% endfor %}
+                                </select>
+                                <button type="submit">Valider</button>
+                            </div>
+                        </div>
+                </div>  
+
+                <div class="quadriceps" onclick="toggleQuadricepsDiv()"></div>
+                <div class="click-quadriceps">
+                    <div class="container">
+                        <h3>Quadriceps</h3>
+                        <p class="close" onclick="closeQuadricepsDiv()">X</p>
+                        <p class="description">Le muscle quadriceps fémoral est dans le corps humain celui qui présente le plus gros volume. Le muscle quadriceps fémoral est localisé dans la cuisse. Il est constitué de quatre faisceaux, le muscle droit fémoral, le muscle vaste latéral, le muscle vaste médial et le muscle vaste intermédiaire.</p>
+                        <span class="separation"></span>
+                        <p class="exercice"><strong>Exercice(s)</strong> : Le SQUAT: la barre posée sur le support, se glisser dessous et la placer sur les trapèzes 
+                            un peu plus haut que les deltoïdes postérieurs; saisir la barre à pleines mains avec un écartement variable 
+                            selon les morphologies et tirer les coudes en arrière; inspirer fortement, cambrer légèrement le dos en effectuant une antéversion du bassin, contracter la sangle abdominale, regarder droit devant soi et décoller la 
+                            barre du support. Reculer d’un ou deux pas, s’accroupir en inclinant le dos vers l’avant en controlant la descente et en arrondissant jamais le dos.</p>
+                        <div class="liste-session">
+                            <select id="title" name="title">  
+                                <option value="" disabled selected>- Ajouter à une séance -</option>
+                                {% for title in titlesession %}
+                                    <option value="{{ title.title_session }}">{{ title.title_session }}</option>
+                                {% endfor %}
+                            </select>
+                            <button type="submit">Valider</button>
+                        </div>
+                    </div>
+                </div>  
+            </div>
+
+
         </div>
+        <h1>Cliquez sur une partie du corps</h1> 
     </body>
 </html>

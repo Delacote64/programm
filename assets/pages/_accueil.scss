@@ -1,0 +1,189 @@
+@use "../abstracts" as *;
+
+body {
+    margin: 0;
+    background-color: white;
+}
+
+.nav a {
+    justify-content: right;
+    margin-right: 60px;
+    display: inline-block;
+    position: relative;
+    color: #5E43FF;
+}
+
+.nav a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #5E43FF;
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+}
+
+.nav {
+    display: flex;
+    justify-content: right;
+}
+
+.nav a:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+.nav a{
+    text-decoration: none;
+    font-family: "Calistoga";
+    color: #5E43FF;
+    padding-top: 20px;
+}
+
+.container-infos {
+    padding: 20px;
+    margin-left: 70px;
+}
+
+.btn-ajout-seance {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: 0px 7px 21px 1px #c8c7c7ab;
+    width: 11%;
+    padding: 70px 20px 70px 20px;
+    border-radius: 15px;
+    margin: 0 auto; 
+    position: relative;
+    cursor: pointer;
+    transition: 0.5s cubic-bezier(0.6, 0.03, 0.28, 0.98);  
+    transform: scale(1);
+}
+
+#btn-ajout {
+    width: 30%;
+    margin-top: 20px;
+}
+
+.btn-ajout-seance:hover {
+    transform: scale(1.1);
+    transition: 0.5s cubic-bezier(0.6, 0.03, 0.28, 0.98);
+}
+
+.btn-ajout-seance a{
+    text-decoration: none;
+    font-family: "Dosis";
+    color: #5E43FF;
+    font-weight: 700;
+    text-align: center;
+}
+
+.btn-ajout-seance svg {
+    width: 20%;
+    position: absolute;
+    color: #5E43FF;
+    bottom: 0;
+    right: 6px;
+}
+
+h1 {
+    font-family: "Calistoga";
+    color: #5E43FF;
+    margin: 0;
+    font-size: 35px;
+}
+
+h2 {
+    margin :0;
+    font-family: "Dosis";
+    color: #5E43FF;
+}
+
+h3 {
+    font-family: "Calistoga";
+    color: #FFCB9B;
+    font-size: 30px;
+    margin-top: 40px;
+}
+
+.section-human {
+    background: linear-gradient(to bottom, #afa1fc,  #5E43FF );
+    display: flex;
+    padding-top: 60px;
+    margin-top: 80px;
+    justify-content: space-between;
+    border-radius: 40px 40px 0px 0px;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+.section-human-txt {
+    width: 35%;
+}
+
+.section-human-txt p{
+    font-family: "Dosis";
+    color: white;
+    display: flex;
+    flex-direction: column;
+    font-size: 30px;
+}
+
+.section-human-txt svg {
+    width: 10%;
+    color: white;
+}
+
+.section-human-femme, .section-human-homme {
+    background: rgba(255, 255, 255, 0.23);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    width: 25%;
+    height: 60vh;
+    margin-bottom: 4%;
+    border-radius: 30px;
+    transition: 0.5s cubic-bezier(0.6, 0.03, 0.28, 0.98);
+    transform: scale(1);
+    box-shadow: 0px 5px 5px #8c82c31a;
+    cursor: pointer;
+}
+
+.section-human-femme:hover, .section-human-homme:hover {
+    transform: scale(1.1);
+    transition: 0.5s cubic-bezier(0.6, 0.03, 0.28, 0.98);
+}
+
+.section-human-femme img{
+    width: 58%;
+    color: white;
+    margin: 0;
+    left: 62px;
+    right: 0;
+    position: relative;
+    top: 4%;
+}
+
+.section-human-femme h4, .section-human-homme h4 { 
+    margin: 0; 
+    text-align: center;
+    margin-top: 6%;
+    font-family: "Dosis";
+    color: white;
+}
+
+.section-human-homme img{
+    width: 62%;
+    color: white;
+    margin: 0;
+    left: 54px;
+    right: 0;
+    position: relative;
+    top: 4%;
+}
+

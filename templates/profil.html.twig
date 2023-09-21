@@ -5,17 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Commencer ou s'inscrire</title>
-    <link href="{{ asset('css/profiltype.css') }}" rel="stylesheet"/>
+    {% block stylesheets %}{{ encore_entry_link_tags('app') }}{% endblock %}
 
     </head>
-    <body>
+    <body class="body-profil">
         {% block body %}
-        <h1>Votre profil<h1>
-        {{ form_start(form) }}
-        {{ form_end(form) }}
+        <h1>Votre profil</h1>
+        {{ form_start(form_userLogin) }}
+        {{ form_end(form_userLogin) }}
         <div class="conditions">
-            <input type="checkbox">
-                <p>J'ai lu et j'accepte les <a href="">conditions générales.</a></p>
+            <input id="checkbox" type="checkbox">
+                <p>J'ai lu et j'accepte les <a href="">conditions générales</a>, <a href="">les CGU</a> et <a href="">RGPD.</a></p>
             </input>
         </div>
         {% endblock %}   

@@ -21,6 +21,22 @@ class CardioSessionRepository extends ServiceEntityRepository
         parent::__construct($registry, CardioSession::class);
     }
 
+    public function save(CardioSession $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->persist($entity);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
+    public function getTitles() {
+        return $this->createQueryBuilder('m')
+        ->select('m.title_session')
+        ->getQuery()
+        ->getResult();
+    }
+
 //    /**
 //     * @return CardioSession[] Returns an array of CardioSession objects
 //     */

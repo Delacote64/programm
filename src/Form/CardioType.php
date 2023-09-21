@@ -10,6 +10,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+
 
 class CardioType extends AbstractType
 {
@@ -50,7 +52,7 @@ class CardioType extends AbstractType
             ->add('description', TextType::class, [
                 'attr' => ['placeholder' => 'Description']
             ])
-            ->add('user')
+            ->add('Terminer', SubmitType::class)
         ;
     }
 

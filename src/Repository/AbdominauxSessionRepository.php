@@ -21,6 +21,21 @@ class AbdominauxSessionRepository extends ServiceEntityRepository
         parent::__construct($registry, AbdominauxSession::class);
     }
 
+    public function save(AbdominauxSession $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->persist($entity);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
+    public function getTitles() {
+        return $this->createQueryBuilder('m')
+        ->select('m.title_session')
+        ->getQuery()
+        ->getResult();
+    }
 //    /**
 //     * @return AbdominauxSession[] Returns an array of AbdominauxSession objects
 //     */

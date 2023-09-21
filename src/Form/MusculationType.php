@@ -17,40 +17,40 @@ class MusculationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title_session', TextType::class, [
-                'attr' => ['placeholder' => 'Ajoutez un titre à votre séance']
-                ])
-            ->add('day_session', DateType::class, [
-                'attr' => ['placeholder' => 'Choisissez un jour pour faire votre séance']
+        ->add('title_session', TextType::class, [
+            'attr' => ['placeholder' => 'Ajoutez un titre à votre séance']
             ])
-            ->add('title_exercise', TextType::class, [
-                'attr' => ['placeholder' => 'Ajoutez un titre à votre exercice']
-                ])
-            ->add('repetition', NumberType::class, [
-                'attr' => ['placeholder' => 'Répétition']
-                ])
-            ->add('weight', NumberType::class, [
-                'attr' => ['placeholder' => 'Poids']
+        ->add('day_session', DateType::class, [
+            'attr' => ['placeholder' => 'Choisissez un jour pour faire votre séance']
+                    ])
+        ->add('title_exercise', TextType::class, [
+            'attr' => ['placeholder' => 'Ajoutez un titre à votre exercice']
             ])
-            ->add('RPE', NumberType::class, [
-                'attr' => ['placeholder' => 'RPE']
+        ->add('serie', NumberType::class, [
+            'attr' => ['placeholder' => 'Serie']
+        ])
+        ->add('repetition', NumberType::class, [
+            'attr' => ['placeholder' => 'Répétition']
             ])
-            ->add('break', TimeType::class, [
-                'input' => 'datetime',
-                'widget' => 'choice',
-                'hours' => range(0, 23),
-                'minutes' => range(0, 59),
-                'seconds' => range(0, 59),
-                'attr' => ['placeholder' => 'Temps de repos (minutes:secondes)']
-            ])
-            ->add('description', TextType::class, [
-                'attr' => ['placeholder' => 'Description']
-            ])
-            ->add('serie', NumberType::class, [
-                'attr' => ['placeholder' => 'Serie']
-            ])
-            ->add('save', SubmitType::class)
-            ;
+        ->add('weight', NumberType::class, [
+            'attr' => ['placeholder' => 'Poids']
+        ])
+        ->add('RPE', NumberType::class, [
+            'attr' => ['placeholder' => 'RPE']
+        ])
+        ->add('break', TimeType::class, [
+            'input' => 'datetime',
+            'widget' => 'choice',
+            'hours' => range(0, 23),
+            'minutes' => range(0, 59),
+            'seconds' => range(0, 59),
+            'attr' => ['placeholder' => 'Temps de repos (minutes:secondes)']
+        ])
+        ->add('description', TextType::class, [
+            'attr' => ['placeholder' => 'Description']
+        ])
+        ->add('Terminer', SubmitType::class)
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

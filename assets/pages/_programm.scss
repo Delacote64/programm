@@ -1,0 +1,48 @@
+@use "../abstracts" as *;
+  
+.body-programm {
+    background-color:#5E43FF;
+}
+
+.content {
+    margin-top: 10%;
+
+    p {
+        color: white;
+        font-family: "Calistoga";
+        font-size: 55px;
+        text-align: center;
+    }
+    
+    .btn-registration {
+        display: flex;
+        justify-content: center;
+
+        a {
+            background: rgba(255, 255, 255, 0.23);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 20px 55px 20px 55px;
+            border-radius: 50px;
+            font-family: "Calistoga";
+            text-decoration: none;
+            margin-bottom: 20px;
+            color: black;
+            font-size: 30px;
+        }
+    }
+
+    .btn-connexion {
+        display: flex;
+        justify-content: center;
+
+        a {
+            color: white;
+            font-size: 20px;
+            font-family: "Calistoga";
+            font-style: none;
+        }
+    }
+}

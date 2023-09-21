@@ -5,14 +5,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Se connecter</title>
-    <link href="{{ asset('css/registration.css') }}" rel="stylesheet"/>
+    {% block stylesheets %}{{ encore_entry_link_tags('app') }}{% endblock %}
 
     </head>
-    <body>
-        {% block body %}
-            <h1>Création de votre compte</h1>
-            {{ form_start(form) }}
-            {{ form_end(form) }}
-        {% endblock %}   
-    </body>
+        <body class="body-registration">
+            <div class="registration_container">
+                    {% block body %}
+                        <h1>Création de votre compte</h1>
+                        {{ form_start(form) }}
+                        {{ form_end(form) }}
+                    {% endblock %}   
+            </div>
+        </body>
 </html>

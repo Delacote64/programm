@@ -1,0 +1,176 @@
+@use "../abstracts" as *;
+
+.body-session {
+    background-color: #5E43FF;
+    margin:0;
+}
+
+.page .back-btn {
+    cursor: pointer;
+    margin-left: 60px;
+    margin-top: 25px;
+    color:#5E43FF;
+}
+
+.page_container_session {
+    background-color: rgb(245, 245, 245);
+    position: absolute;
+    width: 100%;
+    top: 69px;
+    height: 140vh;
+    border-radius: 50px 50px 0px 0px;
+}
+
+.page_container_session .form-session {
+    text-align: center;
+    margin-top: 5%;
+}
+
+.form-session p {
+    font-family: "Dosis";
+    color: #000000;
+    font-size: 30px;
+    font-weight: 800;
+}
+
+label {
+    display: none;
+}
+
+.form form {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.form input {
+    padding: 10px 15px;
+    border-radius: 64px;
+    width: 35%;
+    margin-bottom: 20px;
+    font-family: "Dosis";
+    color: #898989;
+    font-size: 16px;
+    box-shadow: 0px 5px 5px #8c82c31a;
+    border: none;
+    cursor: pointer;
+}
+
+#musculation, #cardio, #abdominaux {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top:70px;
+}
+
+.date_session {
+    padding: 10px 15px;
+    border-radius: 64px;
+    margin-bottom: 20px;
+    font-family: "Dosis";
+    color: #898989;
+    font-size: 16px;
+    box-shadow: 0px 5px 5px #8c82c31a;
+    border: none;
+    cursor: pointer;
+}
+
+#cardio_day_session, #musculation_day_session, #abdominaux_day_session, #musculation_break, #cardio_time_exercise, #cardio_break, #abdominaux_time_exercise, #abdominaux_break {
+    display: flex;
+    justify-content: left;
+    width: 44%;
+    margin: auto;
+}
+
+#cardio_day_session select, #musculation_day_session select, #abdominaux_day_session select, #musculation_break select, #cardio_time_exercise select, #cardio_break select, #abdominaux_time_exercise select, #abdominaux_break select{
+    margin-inline-start: 50px;
+    padding: 10px 15px;
+    border-radius: 64px;
+    margin-bottom: 20px;
+    font-family: "Dosis";
+    color: #898989;
+    font-size: 16px;
+    box-shadow: 0px 5px 5px #8c82c31a;
+    border: none;
+    width: 155px;
+    cursor: pointer;
+
+}
+
+#musculation_break select, #cardio_time_exercise select, #cardio_break select, #abdominaux_time_exercise select, #abdominaux_break select {
+    width: 255px !important;
+}
+
+#session {
+    color: #5E43FF;
+    font-family: "Dosis";
+    font-size: 17px;
+    text-align: center;
+    border: none;
+    margin-bottom: 20px;
+}
+
+.hidden-form {
+    display: none;
+}
+
+.form {
+    text-align: center;
+}
+
+.form #musculation #musculation_day_session label {
+    display: block;
+}
+
+.form button {
+    background-color: #5E43FF;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 30px;
+    font-family: "Calistoga";
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0px 5px 5px #8c82c31a;
+}
+
+button:hover{
+    background-color:#4d428b;
+}
+
+.type-seance-icon {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 70px;
+}
+
+.type-seance-icon .togg1, .togg2, .togg3 {
+    background-color: white;
+    width: 100px;
+    height: 143px;
+    border-radius: 20px;
+    box-shadow: 0px 5px 5px #8c82c31a;
+    cursor: pointer;
+    transition: 0.5s cubic-bezier(0.3, 0.03, 0.28, 0.98);
+    transform: scale(1);
+    display: flex;
+    flex-direction: column;
+    font-family: "Dosis";
+}
+
+.type-seance-icon .togg1:hover, .togg2:hover, .togg3:hover {
+    transition: 0.5s cubic-bezier(0.3, 0.03, 0.28, 0.98);
+    transform: scale(1.3);
+}
+
+.type-seance-icon .togg1.active, .togg2.active, .togg3.active {
+    transition: 0.5s cubic-bezier(0.3, 0.03, 0.28, 0.98);
+    transform: scale(1.3);
+}
+
+.type-seance-icon img{
+    padding: 20px;
+}
+

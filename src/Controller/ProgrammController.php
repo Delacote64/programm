@@ -26,28 +26,15 @@ use Symfony\Component\HttpFoundation\Request;
 class ProgrammController extends AbstractController
 {
     private $userLoginRepository;
-    private $userRepository;
     private $sessionRepository;
-    private $exercisesRepository;
     private $entityManager;
     private $MusculationSessionRepository;
     
-    public function __construct(UserRepository $userRepository, UserLoginRepository $userLoginRepository, SessionRepository $sessionRepository, ExercisesRepository $exercisesRepository, MusculationSessionRepository $musculationSessionRepository, ManagerRegistry $doctrine)
+    public function __construct(UserLoginRepository $userLoginRepository, SessionRepository $sessionRepository, MusculationSessionRepository $musculationSessionRepository, ManagerRegistry $doctrine)
     {
-        $this->userRepository = $userRepository;
         $this->userLoginRepository = $userLoginRepository;  
-        $this->sessionRepository = $sessionRepository;  
-        $this->exercisesRepository = $exercisesRepository;
         $this->MusculationSessionRepository = $musculationSessionRepository;
         $this->entityManager = $doctrine->getManager();
-    }
-
-    #[Route('/programm', name: 'app_programm')]
-    public function index(): Response
-    {
-        return $this->render('programm/index.html.twig', [
-            'controller_name' => 'ProgrammController',
-        ]);
     }
  
     #[Route('/programm', name: 'programm', methods: ["GET"])]
@@ -97,7 +84,6 @@ class ProgrammController extends AbstractController
     {
         $data = new CombinedFormData();
         $data->setSession(new Session());
-        $data->setExercise(new Exercises());
     
         $form = $this->createForm(CombinedType::class, $data);
     
@@ -124,37 +110,5 @@ class ProgrammController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
- 
-    #[Route('/bodyPart', name: 'bodyPart', methods: ["GET"])]
 
-    public function oserView(): Response
-    {   
-        return $this->render('bodyPart.html.twig');
-    }
-
-    /*
-    * @Route("/create-musculation", name="create_musculation")
-    */
-    #[Route('/create', name: 'create', methods: ["GET", "POST"])]
-
-   public function createMusculation(Request $request, MusculationSessionRepository $MusculationSessionRepository): Response
-   {
-       $musculationSession = new MusculationSession();
-       $form = $this->createForm(MusculationType::class, $musculationSession);
-   
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $musculationSession = $form->getData();
-            $musculationSession->setCreatedAt(new \DateTimeImmutable('now'));
-
-            $this->MusculationSessionRepository->save($musculationSession, true);
-            $this->entityManager->persist($musculationSession);
-            $this->entityManager->flush();
-            return $this->redirectToRoute('accueil'); // Redirection après l'enregistrement
-        }
-   
-       return $this->render('create.html.twig', [
-           'form' => $form->createView(),
-       ]);
-   }
 }
