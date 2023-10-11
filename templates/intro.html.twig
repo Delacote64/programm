@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
     {% block stylesheets %}{{ encore_entry_link_tags('app') }}{% endblock %}
-    {% block javascripts %}{{ encore_entry_script_tags('app') }}{% endblock %}
+    <script src="{{ asset('main.js')}}"></script>
     </head>
-    <body>
+    <body class="body-intro">
         <div class="slider">
             <div class="slider_nav">
                 <button onclick="previous()" class="slider_nav_button slider_nav_slider_prev"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -26,10 +26,10 @@
                     <img src="img/slider-1.png" alt="">
                     <p>Créez votre séance</p>
                 </div>
-                <div class="slider_content_item">
+                {# <div class="slider_content_item">
                     <img src="img/slider-2.png" alt="">
                     <p>Observez votre évolution</p>
-                </div>
+                </div> #}
                 <div class="slider_content_item">
                     <img src="img/slider-3.png" alt="">
                     <p>Découvrez une sélection d'exercice pour toutes les parties du corps</p>

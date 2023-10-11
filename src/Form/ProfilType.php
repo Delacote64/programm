@@ -17,10 +17,10 @@ class ProfilType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class, [
+            ->add('surname', TextType::class, [
                 'attr' => ['placeholder' => 'Nom']
             ])
-            ->add('surname', TextType::class, [
+            ->add('name', TextType::class, [
                 'attr' => ['placeholder' => 'Prénom']
             ])
             ->add('birthday', DateType::class, [

@@ -2,26 +2,27 @@
 
 namespace App\Repository;
 
-use App\Entity\SessionType;
+use App\Entity\Sessions;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<SessionType>
+ * @extends ServiceEntityRepository<Sessions>
  *
- * @method SessionType|null find($id, $lockMode = null, $lockVersion = null)
- * @method SessionType|null findOneBy(array $criteria, array $orderBy = null)
- * @method SessionType[]    findAll()
- * @method SessionType[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Sessions|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Sessions|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Sessions[]    findAll()
+ * @method Sessions[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class SessionTypeRepository extends ServiceEntityRepository
+class SessionsRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, SessionType::class);
+        parent::__construct($registry, Sessions::class);
     }
 
-    public function save(SessionType $entity, bool $flush = false): void
+    
+    public function save(Sessions $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,17 +31,16 @@ class SessionTypeRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(SessionType $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->remove($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
+        public function getTitle() {
+            return $this->createQueryBuilder('s')
+            ->select('s.title')
+            ->getQuery()
+            ->getResult();
         }
-    }
+
 
 //    /**
-//     * @return SessionType[] Returns an array of SessionType objects
+//     * @return Sessions[] Returns an array of Sessions objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class SessionTypeRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?SessionType
+//    public function findOneBySomeField($value): ?Sessions
 //    {
 //        return $this->createQueryBuilder('s')
 //            ->andWhere('s.exampleField = :val')

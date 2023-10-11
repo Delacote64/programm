@@ -1,3 +1,21 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+
+# Route pour afficher le formulaire de création de séance
+sessions_create:
+    path: /sessions/create
+    controller: App\Controller\SessionsController::createSession
+
+# Routes pour afficher les vues spécifiques en fonction du type de séance
+musculation_view:
+    path: /sessions/musculation
+    controller: App\Controller\SessionsController::musculationView
+
+cardio_view:
+    path: /sessions/cardio
+    controller: App\Controller\SessionsController::cardioView
+
+abdos_view:
+    path: /sessions/abdo
+    controller: App\Controller\SessionsController::abdosView

@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Session;
+use App\Entity\UserLogin;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -11,7 +11,6 @@ use App\Entity\MusculationSession;
 use App\Entity\SessionType;
 use App\Form\CombinedFormData;
 use App\Form\CombinedType;
-use App\Repository\UserRepository;
 use App\Repository\UserLoginRepository;
 use App\Repository\SessionRepository;
 use App\Repository\ExercisesRepository;
@@ -21,19 +20,19 @@ use IntlDateFormatter;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Form\MusculationType;
 use Symfony\Component\HttpFoundation\Request;
-
+use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class ProgrammController extends AbstractController
 {
     private $userLoginRepository;
     private $sessionRepository;
     private $entityManager;
-    private $MusculationSessionRepository;
+    private $userLogin;
     
-    public function __construct(UserLoginRepository $userLoginRepository, SessionRepository $sessionRepository, MusculationSessionRepository $musculationSessionRepository, ManagerRegistry $doctrine)
+    public function __construct(UserLoginRepository $userLoginRepository, ManagerRegistry $doctrine)
     {
         $this->userLoginRepository = $userLoginRepository;  
-        $this->MusculationSessionRepository = $musculationSessionRepository;
         $this->entityManager = $doctrine->getManager();
     }
  
@@ -41,8 +40,7 @@ class ProgrammController extends AbstractController
 
     public function otherViewAction(): Response
     {        
-        return $this->render('programm.html.twig', [
-        ]);
+        return $this->render('programm.html.twig');
     }
 
     #[Route('/base', name: 'base', methods: ["GET"])]
@@ -53,17 +51,18 @@ class ProgrammController extends AbstractController
     }
 
  // Get pour aller chercher la donner
-    #[Route('/intro', name: 'intro', methods: ["GET"])]
+    #[Route('/intro', name: 'intro', methods: ["GET", "POST"])]
 
     public function saveUser(): Response
-    {    
+    {            
         return $this->render('intro.html.twig');
     }
 
     #[Route('/accueil', name: 'accueil', methods: ["GET", "POST"])]
 
-    public function DateTime(): Response 
+    public function DateTime(UserLoginRepository $userLoginRepository, Security $security): Response 
     {
+        $user = $security->getUser();
         $dateDay = new DateTime;
         $formatter = new IntlDateFormatter(
             'fr_FR',
@@ -75,40 +74,7 @@ class ProgrammController extends AbstractController
 
         return $this->render('accueil.html.twig', [
             'date' => $date,
+            'user' => $user
         ]);   
     }
-
-    #[Route('/session', name: 'session', methods: ["GET", "POST"])]
-
-    public function form(Request $request): Response
-    {
-        $data = new CombinedFormData();
-        $data->setSession(new Session());
-    
-        $form = $this->createForm(CombinedType::class, $data);
-    
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            var_dump($form);
-            $data = $form->getData();
-            $session = $data->getSession();
-            $exercises = $data->getExercise();
-            $session->setCreatedAt(new \DateTimeImmutable('now'));
-
-            // Save the entities into their respective tables
-            $this->sessionRepository->save($session, true);
-
-            $this->entityManager->persist($exercises);
-            $this->entityManager->flush();
-            //$this->exercisesRepository->save($exercises, true);
-
-            // Redirect to another page after successful submission
-            return $this->redirectToRoute('session', ['id' => $session->getId()]);
-        }
-    
-        return $this->render('session.html.twig', [
-            'form' => $form->createView(),
-        ]);
-    }
-
 }

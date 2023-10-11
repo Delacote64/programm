@@ -20,14 +20,17 @@ security:
             form_login:
                 login_path: app_login
                 check_path: app_login
-                default_target_path: intro
+                default_target_path: accueil
             logout:
                 path: app_logout
-                target: intro
+                target: login
         secured_area:
             form_login:
                 enable_csrf: true
-
+       
+    # access_control:
+    #     - { path: ^/, roles: IS_AUTHENTICATED_REMEMBERED }
+        
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
 
@@ -36,9 +39,6 @@ security:
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
-    access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
 
 when@test:
     security:
@@ -51,3 +51,7 @@ when@test:
             cost: 4 # Lowest possible value for bcrypt
             time_cost: 3 # Lowest possible value for argon
             memory_cost: 10 # Lowest possible value for argon
+        # access_control:
+        #     - { path: /programm, roles: PUBLIC_ACCESS }
+        #     - { path: ^/, roles: IS_AUTHENTICATED_REMEMBERED }
+        

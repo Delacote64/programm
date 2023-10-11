@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 
 class CardioType extends AbstractType
@@ -18,12 +19,6 @@ class CardioType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title_session', TextType::class, [
-                'attr' => ['placeholder' => 'Ajoutez un titre à votre séance']
-            ])
-            ->add('day_session', DateType::class, [
-                'attr' => ['placeholder' => 'Choisissez un jour pour faire votre séance']
-            ])
             ->add('title_exercise', TextType::class, [
                 'attr' => ['placeholder' => 'Ajoutez un titre à votre exercice']
                 ])
@@ -59,7 +54,7 @@ class CardioType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => CardioSession::class,
+            'cardio_form' => CardioSession::class,
         ]);
     }
 }

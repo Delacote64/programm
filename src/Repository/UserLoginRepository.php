@@ -39,6 +39,19 @@ class UserLoginRepository extends ServiceEntityRepository
         }
     }
 
+
+    public function findUsers(UserLogin $user)
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT d
+            FROM App\Entity\Data d
+            WHERE d.user = :user'
+        )->setParameter('user', $user);
+
+        return $query->getResult();
+    }
 //    /**
 //     * @return UserLogin[] Returns an array of UserLogin objects
 //     */

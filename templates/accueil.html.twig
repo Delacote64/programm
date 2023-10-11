@@ -4,39 +4,44 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accueil</title>
+    <meta name="description" content="Créer votre programme sportif sur mesure gratuitement, pour être organisé et assidu dans vos séance avec l'application Programm. Suivez des conseils et misez les avec vos séances de musculation, cardio ou abdominaux.">
+    <title>Accueil Programm</title>
     {% block stylesheets %}{{ encore_entry_link_tags('app') }}{% endblock %}
     <script src="{{ asset('main.js')}}"></script>
     </head>
-    <body>
+    <body class="body-accueil">
 
         <div class="page-container">
             <div class="nav">
                 <a href="accueil">Accueil</a>
-                <a href="">Séances</a>
-                <a href="">Comptes</a>
+                <a href="sessions">Séances</a>
+                <a href="profil">Comptes</a>
                 <a href="">Mentions légales</a>
                 <a href="">CGU</a>
             </div>
 
-            <div class="home_page">
-                <section>
-                    <div class="container-infos">
-                        {# <h1>Bonjour X</h1> #}
-                        <h2>{{ date }}</h2>
-                        <h3>Vos séances</h3>
-                    </div>
+            <div class="menu-icon" id="menu-icon">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
 
-                    <div class="btn-ajout-seance">
-                        <a href="session">
-                            <p>Ajoutez une séance</p>
-                            <img id="btn-ajout" src="img/ajouter-un-bouton.png">
-                            {# <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" /
-                            </svg> #}
-                        </a>
-                    </div>
-                </section>
+            <div class="home_page">
+                <div class="container-infos">
+                    <h1>Bonjour {{ app.user.name }}</h1>
+                    <h2>{{ date }}</h2>
+                    <h3>Vos séances</h3>
+                </div>
+
+                <div class="btn-ajout-seance">
+                    <a href="session">
+                        <p>Ajoutez une séance</p>
+                        <img id="btn-ajout" src="img/ajouter-un-bouton.png" alt="séance de sport" aria-label="ajoutez une séance de sport">
+                    </a>
+                </div>
+                {# <div class="session-user">
+                    {{ app.user.id }}
+                </div> #}
 
                 <div class="section-human">
                     <div class="section-human-txt">
@@ -45,11 +50,11 @@
                     </div>
                     <div class="section-human-femme">
                         <h4>Femme</h4>
-                        <a href="bodyPart"><img src="img/corps-hum-face.png"></a>
+                        <a href="bodyPart"><img src="img/corps-hum-face.png" alt="musculature femme, sport, exercices, gratuit" aria-label="corps de femme, musculature sportive, exercices grauits"></a>
                     </div>
                     <div class="section-human-homme">
                         <h4>Homme</h4>
-                        <a href="bodyPart"><img src="img/body-man-face.png"></a>
+                        <a href="bodyPart"><img src="img/body-man-face.png" alt="musculature homme, sport, exercices, gratuit"></a>
                     </div>
                 </div>
             </div> 

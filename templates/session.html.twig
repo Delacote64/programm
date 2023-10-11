@@ -16,14 +16,11 @@
             <div class="page_container_session">
                 <div class = "form-session">
                     {% block body %}
+                    <h1>Créez votre séance</h1> 
+                        {{ form_start(sessions_type) }}
+                        {{ form_widget(sessions_type) }}
+                        {{ form_end(sessions_type) }}
                     <p>Choisissez un type de séance</p>
-                    {# <label for="session"></label>
-                        <select name="session" id="session" onChange="affiche_ncDIV(this.value)">
-                            <option value="" disabled selected>- Type de séances -</option>
-                            <option id="togg1" value="Musculation">Musculation</option>
-                            <option id="togg2" value="Cardio">Cardio</option>
-                            <option id="togg3" value="Abdominaux">Abdominaux</option>
-                        </select> #}
                         <div class="type-seance-icon">
                             <div class="togg1" onclick="toggleSize(this)"> <img src="img/muscu-icon.png" alt ="">Musculation</div>
                             <div class="togg2" onclick="toggleSize(this)"> <img src="img/cardio-icon.png" alt ="">Cardio</div>

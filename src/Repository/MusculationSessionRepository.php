@@ -30,12 +30,12 @@ class MusculationSessionRepository extends ServiceEntityRepository
         }
     }
 
-    public function getTitles() {
-        return $this->createQueryBuilder('m')
-        ->select('m.title_session')
-        ->getQuery()
-        ->getResult();
-    }
+    // public function getTitles() {
+    //     return $this->createQueryBuilder('m')
+    //     ->select('m.title_session')
+    //     ->getQuery()
+    //     ->getResult();
+    // }
 //    /**
 //     * @return MusculationSession[] Returns an array of MusculationSession objects
 //     */

@@ -26,7 +26,7 @@
                 display: none;
             }
 
-            input #form_Email, #form_password {
+            input .email, #form_password {
                     margin-bottom: 4% !important;
                     border-radius: 30px;
                     border: none;
@@ -37,6 +37,16 @@
                     margin-top: 10px;
                 }
             
+                .email {
+                    margin-bottom: 4% !important;
+                    border-radius: 30px;
+                    border: none;
+                    padding: 20px;
+                    width: 97%;
+                    background-color: white;
+                    padding: 11px;
+                    margin-top: 10px;
+                }
     
             button {
                 background-color: #5E43FF;

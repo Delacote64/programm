@@ -15,12 +15,6 @@ class AbdominauxSession
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $title_session = null;
-
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $day_session = null;
-
-    #[ORM\Column(length: 255)]
     private ?string $title_exercise = null;
 
     #[ORM\Column]
@@ -38,39 +32,21 @@ class AbdominauxSession
     #[ORM\Column(length: 255)]
     private ?string $description = null;
 
-    #[ORM\ManyToOne(inversedBy: 'abdominauxSessions')]
-    private ?User $user = null;
-
     #[ORM\Column]
     private ?\DateTimeImmutable $created_at = null;
+
+    #[ORM\ManyToOne(inversedBy: 'abdominauxSessions')]
+    private ?UserLogin $user = null;
+
+    #[ORM\ManyToOne(inversedBy: 'abdominauxSessions')]
+    private ?Sessions $sessions = null;
+
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?BodyPart $bodyPart = null;
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getTitleSession(): ?string
-    {
-        return $this->title_session;
-    }
-
-    public function setTitleSession(string $title_session): static
-    {
-        $this->title_session = $title_session;
-
-        return $this;
-    }
-
-    public function getDaySession(): ?\DateTimeInterface
-    {
-        return $this->day_session;
-    }
-
-    public function setDaySession(\DateTimeInterface $day_session): static
-    {
-        $this->day_session = $day_session;
-
-        return $this;
     }
 
     public function getTitleExercise(): ?string
@@ -145,18 +121,6 @@ class AbdominauxSession
         return $this;
     }
 
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): static
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
     public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->created_at;
@@ -165,6 +129,42 @@ class AbdominauxSession
     public function setCreatedAt(\DateTimeImmutable $created_at): static
     {
         $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getUser(): ?UserLogin
+    {
+        return $this->user;
+    }
+
+    public function setUser(?UserLogin $user): static
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getSessions(): ?Sessions
+    {
+        return $this->sessions;
+    }
+
+    public function setSessions(?Sessions $sessions): static
+    {
+        $this->sessions = $sessions;
+
+        return $this;
+    }
+
+    public function getBodyPart(): ?BodyPart
+    {
+        return $this->bodyPart;
+    }
+
+    public function setBodyPart(?BodyPart $bodyPart): static
+    {
+        $this->bodyPart = $bodyPart;
 
         return $this;
     }

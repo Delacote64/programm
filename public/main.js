@@ -1,4 +1,6 @@
 // Slider de la page Intro
+//les propriété scrollLeft permettent de déplacer le contenu vers la gauche, ici le -= va à gauche tandis que le += à droite elle permet de modifier la valeur de scrollLeft.
+
 function previous() {
     const widthSlider = document.querySelector('.slider').offsetWidth;
     document.querySelector('.slider_content').scrollLeft -= widthSlider;
@@ -167,4 +169,3 @@ function toggleSize(element) {
 
     element.classList.add("active");
 }
-

@@ -1,0 +1,15 @@
+@use "../abstracts" as *;
+
+.body-sessions {
+    background-color: #5e43ff;
+
+    .container-sessions {
+        display: flex;
+        justify-content: center;
+        margin-top: 5%;
+        padding-top: 10%;
+        background: white;
+        height: 80vh;
+        border-radius: 40px;
+    }
+}

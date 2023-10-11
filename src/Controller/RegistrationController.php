@@ -28,8 +28,8 @@ class RegistrationController extends AbstractController
         $this->passwordHasher = $passwordHasher;
     }
 
-    // Définition de la propriété UserRepository en instance de la classe UserRepository, pour 
-
+    // Définition de la propriété UserRepository en instance de la classe UserRepository 
+    // Formulaire pour gérer l'inscription
     #[Route('/registration', name: 'registration', methods: ["GET", "POST"])]
 
     public function form(Request $request, FormFactoryInterface $factory, UserPasswordHasherInterface $userPasswordHasher) : Response {
@@ -38,8 +38,6 @@ class RegistrationController extends AbstractController
             'data_class' => UserLogin::class
         ]);
 
-        /*$userlogin = new UserLogin();
-        $userlogin->setCreatedAt(new \DateTimeImmutable('now'));*/
         $form = $this->createFormBuilder(null, ["method" => "POST"])
         ->add('Email', EmailType::class, [
             'attr' => ['placeholder' => 'E-mail']
@@ -51,7 +49,14 @@ class RegistrationController extends AbstractController
         ->getForm();
         $form->handleRequest($request);
 
-        // si il est soumit et validé on vient récupérer les données avec le getData et il est envoyé en bdd avec Set
+        // Vérifie si le formulaire a été soumis avec ($form->isSubmitted() && $form->isValid())
+        // Si c'est le cas, les données sont extraites avec getData et sotckées dans $registration
+        // On créé un nouvel objet pour représenter le user
+        // La date de création du user est la date actuelle
+        // Avant d'envoyer le password en bdd on va utiliser le service de symfony UserPasswordHasherInterface pour venir hasher le mot de passe qu'on associe à l'objet userLogin
+        // Ensuite on envoi le mail et le role déjà définit dans l'entité 
+        // Définir la méthode save dans le repository de l'entité, le true synchronise les modifs avec la bdd
+        // Enfin, à l'envoi on récupère l'id de l'utilisateur créé avec la méthode getId() et on créé la vue et rédirigé vers la route profil
         if($form->isSubmitted() && $form->isValid()) {
             $registration = $form->getData();
             $userLogin = new UserLogin();
@@ -65,16 +70,17 @@ class RegistrationController extends AbstractController
             $userLogin->setRoles(['ROLE_USER']);
 
             $this->userLoginRepository->save($userLogin, true);
-            //    $response = $this->redirectToRoute('profil', ['id' => $userLogin->getId()]);
             return $this->redirectToRoute('profil', ['id' => $userLogin->getId()]);
         }
 
+        // si n'est pas soumis renvoi la vue
         return $this->render('registration.html.twig', [
             "form" => $form->createView()
         ]);
     }
 
-    // Route pour définir ou est le formulaire et quelles méthodes il va utiliser
+    // Récupération le l'id du user dans la route grace à find($id)
+    // Formulaire pour compléter son profil
     #[Route('/profil/{id}', name: 'profil', methods: ["GET", "POST"])]
 
     public function ProfilType(Request $request, $id) : Response 
@@ -97,54 +103,7 @@ class RegistrationController extends AbstractController
         ]);
     }
 
-    #[Route('/registration', name: 'app_registration')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
-    {
-        $user = new UserLogin();
-        $form = $this->createForm(RegistrationFormType::class, $user);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
-            
-            $hashedPassword = $userPasswordHasher->hashPassword(
-                    $user,
-                    $form->get('plainPassword')->getData()
-                );
-            
-            $user->setPassword($hashedPassword);
-
-            $user->setRoles(['ROLE_USER']);
-
-            $entityManager->persist($user);
-            $entityManager->flush();
-            // do anything else you need here, like send an email
-
-            return $this->redirectToRoute('accueil');
-        }
-
-        return $this->render('registration/register.html.twig', [
-            'registrationForm' => $form->createView(),
-        ]);
-    }
-
-    #[Route('/registration/user', name: 'app_registration_user')]
-
-    public function getLastSurname(EntityManagerInterface $entityManager): Response
-    {
-        // Récupérez le dernier utilisateur enregistré (vous pouvez ajuster la logique en fonction de vos besoins)
-        $userRepository = $entityManager->getRepository(UserLogin::class);
-        $lastUser = $userRepository->findOneBy([], ['id' => 'DESC']); // Obtenez le dernier utilisateur enregistré par ID
-
-        if (!$lastUser) {
-            throw $this->createNotFoundException('Aucun utilisateur trouvé');
-        }
-
-        $lastSurname = $lastUser->getSurname();
-
-        return $this->render('last_surname.html.twig', ['last_surname' => $lastSurname]);
-    }
-
+    //à développer : déconnexion
     #[Route('/logout', name: 'app_logout', methods: ['GET'])]
     public function logout(): never
     {

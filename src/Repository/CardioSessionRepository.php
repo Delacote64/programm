@@ -30,12 +30,12 @@ class CardioSessionRepository extends ServiceEntityRepository
         }
     }
 
-    public function getTitles() {
-        return $this->createQueryBuilder('m')
-        ->select('m.title_session')
-        ->getQuery()
-        ->getResult();
-    }
+    // public function getTitles() {
+    //     return $this->createQueryBuilder('m')
+    //     ->select('m.title_session')
+    //     ->getQuery()
+    //     ->getResult();
+    // }
 
 //    /**
 //     * @return CardioSession[] Returns an array of CardioSession objects

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserLoginRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -21,9 +23,6 @@ class UserLogin implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $password = null;
-
-    #[ORM\OneToOne(targetEntity: User::class, mappedBy: 'userLogin')]
-    private ?User $user = null;
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $created_at = null;
@@ -49,8 +48,24 @@ class UserLogin implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(nullable: true)]
     private ?int $weight = null;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: MusculationSession::class)]
+    private Collection $musculationSessions;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: AbdominauxSession::class)]
+    private Collection $abdominauxSessions;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: CardioSession::class)]
+    private Collection $cardioSessions;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Sessions::class)]
+    private Collection $sessions;
+
     public function __construct() {
         $this->created_at = new \DateTimeImmutable('now');
+        $this->musculationSessions = new ArrayCollection();
+        $this->abdominauxSessions = new ArrayCollection();
+        $this->cardioSessions = new ArrayCollection();
+        $this->sessions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -217,4 +232,125 @@ class UserLogin implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, MusculationSession>
+     */
+    public function getMusculationSessions(): Collection
+    {
+        return $this->musculationSessions;
+    }
+
+    public function addMusculationSession(MusculationSession $musculationSession): static
+    {
+        if (!$this->musculationSessions->contains($musculationSession)) {
+            $this->musculationSessions->add($musculationSession);
+            $musculationSession->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMusculationSession(MusculationSession $musculationSession): static
+    {
+        if ($this->musculationSessions->removeElement($musculationSession)) {
+            // set the owning side to null (unless already changed)
+            if ($musculationSession->getUser() === $this) {
+                $musculationSession->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, AbdominauxSession>
+     */
+    public function getAbdominauxSessions(): Collection
+    {
+        return $this->abdominauxSessions;
+    }
+
+    public function addAbdominauxSession(AbdominauxSession $abdominauxSession): static
+    {
+        if (!$this->abdominauxSessions->contains($abdominauxSession)) {
+            $this->abdominauxSessions->add($abdominauxSession);
+            $abdominauxSession->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAbdominauxSession(AbdominauxSession $abdominauxSession): static
+    {
+        if ($this->abdominauxSessions->removeElement($abdominauxSession)) {
+            // set the owning side to null (unless already changed)
+            if ($abdominauxSession->getUser() === $this) {
+                $abdominauxSession->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CardioSession>
+     */
+    public function getCardioSessions(): Collection
+    {
+        return $this->cardioSessions;
+    }
+
+    public function addCardioSession(CardioSession $cardioSession): static
+    {
+        if (!$this->cardioSessions->contains($cardioSession)) {
+            $this->cardioSessions->add($cardioSession);
+            $cardioSession->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCardioSession(CardioSession $cardioSession): static
+    {
+        if ($this->cardioSessions->removeElement($cardioSession)) {
+            // set the owning side to null (unless already changed)
+            if ($cardioSession->getUser() === $this) {
+                $cardioSession->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Sessions>
+     */
+    public function getSessions(): Collection
+    {
+        return $this->sessions;
+    }
+
+    public function addSession(Sessions $session): static
+    {
+        if (!$this->sessions->contains($session)) {
+            $this->sessions->add($session);
+            $session->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSession(Sessions $session): static
+    {
+        if ($this->sessions->removeElement($session)) {
+            // set the owning side to null (unless already changed)
+            if ($session->getUser() === $this) {
+                $session->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

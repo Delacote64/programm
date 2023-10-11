@@ -68,16 +68,4 @@ class BodyPart
         return $this;
     }
 
-    // public function getExercices(): ?Exercices
-    // {
-    //     return $this->exercices;
-    // }
-
-    // public function setExercices(?Exercices $exercices): self
-    // {
-    //     $this->exercices = $exercices;
-
-    //     return $this;
-    // }
-
 }

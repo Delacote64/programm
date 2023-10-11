@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\AbdominauxSession;
 use App\Entity\CardioSession;
-use App\Entity\MusculationSession;
+use App\Entity\Sessions;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -25,23 +25,23 @@ class BodyPartController extends AbstractController
 
     public function showTitle(EntityManagerInterface $entityManager): Response {
         // Récupérez les titres de chaque table
-        $musculationTitles = $entityManager->getRepository(MusculationSession::class)->createQueryBuilder('m')
-            ->select('m.title_session')
+        $sessions = $entityManager->getRepository(Sessions::class)->createQueryBuilder('s')
+            ->select('s.title')
             ->getQuery()
             ->getResult();
 
-        $cardioTitles = $entityManager->getRepository(CardioSession::class)->createQueryBuilder('c')
-            ->select('c.title_session')
-            ->getQuery()
-            ->getResult();
+        // $cardioTitles = $entityManager->getRepository(CardioSession::class)->createQueryBuilder('c')
+        //     ->select('c.title_session')
+        //     ->getQuery()
+        //     ->getResult();
 
-        $abdominauxTitles = $entityManager->getRepository(AbdominauxSession::class)->createQueryBuilder('a')
-            ->select('a.title_session')
-            ->getQuery()
-            ->getResult();
+        // $abdominauxTitles = $entityManager->getRepository(AbdominauxSession::class)->createQueryBuilder('a')
+        //     ->select('a.title_session')
+        //     ->getQuery()
+        //     ->getResult();
 
         // Fusionnez les titres en une seule liste
-        $titles = array_merge($musculationTitles, $cardioTitles, $abdominauxTitles);
+        $titles = array_merge($sessions);
 
         return $this->render('bodyPart.html.twig', ['titlesession' => $titles]);
     }  

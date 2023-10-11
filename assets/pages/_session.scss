@@ -5,6 +5,11 @@
     margin:0;
 }
 
+h1 {
+    color: black;
+}
+
+
 .page .back-btn {
     cursor: pointer;
     margin-left: 60px;
@@ -57,6 +62,19 @@ label {
     cursor: pointer;
 }
 
+    #cardio_day_session, #musculation_day_session, #abdominaux_day_session {
+    padding: 10px 15px;
+    border-radius: 64px;
+    width: 37%;
+    margin-bottom: 24px;
+    font-family: "Dosis";
+    color: #898989;
+    font-size: 16px;
+    box-shadow: 0px 5px 5px #8c82c31a;
+    border: none;
+    cursor: pointer;
+}
+
 #musculation, #cardio, #abdominaux {
     width: 100%;
     display: flex;
@@ -77,7 +95,7 @@ label {
     cursor: pointer;
 }
 
-#cardio_day_session, #musculation_day_session, #abdominaux_day_session, #musculation_break, #cardio_time_exercise, #cardio_break, #abdominaux_time_exercise, #abdominaux_break {
+#musculation_break, #cardio_time_exercise, #cardio_break, #abdominaux_time_exercise, #abdominaux_break {
     display: flex;
     justify-content: left;
     width: 44%;

@@ -3,7 +3,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
-
 class SelectSessionType extends AbstractController
 {
     public function createSession(Request $request)
